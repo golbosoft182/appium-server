@@ -4,8 +4,8 @@ FROM node:14
 # Set the working directory
 WORKDIR /usr/src/app
 
-# Install Yarn
-RUN npm install -g yarn
+# Ensure Yarn is installed
+RUN if ! command -v yarn &> /dev/null; then npm install -g yarn; fi
 
 # Install Appium using Yarn
 RUN yarn global add appium
