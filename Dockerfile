@@ -4,8 +4,11 @@ FROM node:14
 # Set the working directory
 WORKDIR /usr/src/app
 
-# Install Appium
-RUN npm install -g appium
+# Install Yarn
+RUN npm install -g yarn
+
+# Install Appium using Yarn
+RUN yarn global add appium
 
 # Install Python and pip
 RUN apt-get update && apt-get install -y python3 python3-pip
