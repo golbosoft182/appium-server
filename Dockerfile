@@ -21,4 +21,4 @@ COPY . .
 EXPOSE 4723
 
 # Start the Appium server
-CMD ["appium"]
+CMD ["appium", "--address", "0.0.0.0", "--port", "4723", "--base-path", "/wd/hub"]
