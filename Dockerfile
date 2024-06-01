@@ -7,6 +7,11 @@ WORKDIR /usr/src/app
 # Install Appium
 RUN npm install -g appium
 
+# Install Appium drivers for Selenium, UiAutomator2, and XCUITest
+RUN appium driver install selenium && \
+    appium driver install uiautomator2 && \
+    appium driver install xcuitest
+
 # Install Python and pip
 RUN apt-get update && apt-get install -y python3 python3-pip
 
