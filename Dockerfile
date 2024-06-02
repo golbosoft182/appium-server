@@ -11,10 +11,6 @@ RUN npm install -g appium
 RUN appium driver install uiautomator2 && \
     appium driver install xcuitest
 
-# Install Appium plugins
-RUN appium plugin install images && \
-    appium plugin install element-wait
-
 # Copy the application files
 COPY . .
 
@@ -26,8 +22,11 @@ RUN apt-get update && \
 # Install Python dependencies
 RUN python3.8 -m pip install -r requirements.txt
 
+# Install Appium plugins
+RUN appium plugin install images
+
 # Expose the Appium port
 EXPOSE 4723
 
-# Run Appium server with base path /wd/hub and use installed plugins
-CMD ["appium", "--base-path", "/wd/hub", "--use-plugins", "images,element-wait"]
+# Run Appium server with /wd/hub base path
+CMD ["appium", "--base-path", "/wd/hub"]
