@@ -14,10 +14,12 @@ RUN appium driver install uiautomator2 && \
 # Copy the application files
 COPY . .
 
-# Install Python 3.8 and pip
+# Install Python 3.8 from deadsnakes PPA
 RUN apt-get update && \
-    apt-get install -y python3.8 python3.8-distutils && \
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.8
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.8 python3.8-distutils
 
 # Install Python dependencies
 RUN python3.8 -m pip install -r requirements.txt
