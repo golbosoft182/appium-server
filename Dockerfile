@@ -1,33 +1,31 @@
-# Use an official Node.js runtime as the base image
+# Use the official Node.js image
 FROM node:14
 
 # Set the working directory
 WORKDIR /usr/src/app
 
-# Install Appium
+# Install Appium globally
 RUN npm install -g appium
 
-# Install Appium driver for Selenium
-RUN appium driver install selenium
+# Install Appium drivers for UiAutomator2 and XCUITest
+RUN appium driver install uiautomator2 && \
+    appium driver install xcuitest
 
-# Install Appium driver for UiAutomator2 (for Android)
-RUN appium driver install uiautomator2
+# If you want to add another valid driver, uncomment and use the correct driver name
+# RUN appium driver install <valid-driver-name>
 
-# Install Appium driver for XCUITest (for iOS)
-RUN appium driver install xcuitest
-
-# Install Python and pip
-RUN apt-get update && apt-get install -y python3 python3-pip
-
-# Copy the requirements.txt file and install Python dependencies
-COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
-
-# Copy the current directory contents into the container at /usr/src/app
+# Copy the application files
 COPY . .
 
-# Expose the Appium server port
+# Install Python and pip
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip
+
+# Install Python dependencies
+RUN pip3 install -r requirements.txt
+
+# Expose the Appium port
 EXPOSE 4723
 
-# Start the Appium server
-CMD ["appium", "--address", "0.0.0.0", "--port", "4723", "--base-path", "/wd/hub"]
+# Run Appium server
+CMD ["appium"]
