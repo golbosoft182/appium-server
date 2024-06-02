@@ -1,22 +1,38 @@
-# appium-server
-Appium Serverz
+## appium-server
+Appium Server
 
-# Steps to Build and Run the Docker Container
-# Ensure no running or exited containers from previous attempts:
+### Steps to Build and Run the Docker Container
+### Ensure no running or exited containers from previous attempts:
+```
 docker ps -a
-docker rm <container_id>  # Remove any existing containers
+```
 
-# Build the Docker image:
+### Remove any existing containers
+```
+docker rm <container_id>
+```
+
+### Build the Docker image:
+```
 docker build -t appium-python .
+```
 
-# Run the Docker container:
+### Run the Docker container:
+```
 docker run -p 4723:4723 -v $(pwd):/usr/src/app appium-python
+```
 
-# Run a shell inside the container:
+### Run a shell inside the container:
+```
 docker exec -it <container_id> /bin/bash
+```
 
-# List installed drivers:
+### List installed drivers:
+```
 appium driver list --installed
+```
 
-# List installed plugins:
+### List installed plugins:
+```
 appium plugin list --installed
+```
